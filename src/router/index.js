@@ -2,6 +2,9 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../components/Login.vue'
 import Home from '../components/Home.vue'
+import Welconme from '../components/Welcome.vue'
+import Users from '../components/user/Users.vue'
+import Cate from '../components/goods/Cate.vue'
 
 Vue.use(VueRouter)
 
@@ -13,9 +16,18 @@ Vue.use(VueRouter)
 
 const router = new VueRouter({
   routes: [
+    // path: 路由规则地址  component: 指定要显示的组件
     { path: '/', redirect: '/login' },
     { path: '/login', component: Login },
-    { path: '/home', component: Home },
+    //重定向形式,只要访问/home地址,就重定向'/welcome 子路由规则
+    {
+      path: '/home', component: Home, redirect: '/welcome',
+      children: [
+        { path: '/welcome', component: Welconme },
+        { path: '/users', component: Users },
+        { path: '/categories', component: Cate }
+      ]
+    },
   ]
 });
 
